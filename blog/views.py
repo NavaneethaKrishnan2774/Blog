@@ -4,38 +4,31 @@ from django.urls import reverse
 from django.template import loader
 import logging
 from .models import Post
+from django.core.paginator import Paginator
 
 
 def index(request):
     blog_title = 'kryzen tech'
     content = "Some quick example text for the post's content."
 
-    posts = Post.objects.all()
+    all_posts = Post.objects.all()
+    paginator = Paginator(all_posts,6)
+    page_number= request.GET.get('page')
+    page_obj=paginator.get_page(page_number)
 
-    return render(
-        request,
-        'index.html',
-        {
-            'blog_title': blog_title,
-            'content': content,
-            'postcontent': posts
-        }
-    )
+    return render(request,'index.html',{'blog_title': blog_title,'page_obj':page_obj})
 
 
 def detail(request, slug):
 
     try:
-        posts = Post.objects.get(slug=slug)
+        post = Post.objects.get(slug=slug)
+        related_post= Post.objects.filter(category = post.category).exclude(pk=post.id)
 
     except Post.DoesNotExist:
         raise Http404("page doen not avail at the moment")
 
-    return render(
-        request,
-        "detail.html",
-        {"post": posts}
-    )
+    return render( request,"detail.html",{"post": post ,"related_post":related_post})
 
 
 def brief(request, post_id):
