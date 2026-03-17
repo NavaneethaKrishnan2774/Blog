@@ -7,4 +7,5 @@ urlpatterns=[
     path("brief/<str:post_id>",views.brief,name="brief"),
     path("new_something_url/",views.new_url,name="new_url"),
     path("old_url/",views.old_url,name="old_url"),
+    path("contact/",views.contact,name="contact")
     ]

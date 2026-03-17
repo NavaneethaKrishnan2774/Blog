@@ -41,3 +41,6 @@ def old_url(request):
 
 def new_url(request):
     return HttpResponse("this is our new url page")
+
+def contact(request):
+    return render(request,"contact.html")
