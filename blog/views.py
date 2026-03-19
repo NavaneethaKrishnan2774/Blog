@@ -5,7 +5,7 @@ from django.template import loader
 import logging
 from .models import Post ,Aboutus
 from django.core.paginator import Paginator
-from .forms import contactform
+from .forms import contactform , registerform
 
 
 def index(request):
@@ -61,5 +61,40 @@ def contact(request):
     return render(request,"contact.html")
 
 def about(request):
-    about_content = Aboutus.objects.first().content
+    about_content = Aboutus.objects.first()
+    if about_content is None or not  about_content.content:
+        about_content='The default content is here'
+    else:
+        about_content=about_content.content
     return render(request,'about.html',{'about_content':about_content})
+ 
+def login(request):
+    return render(request,'login.html')
+
+def register(request):
+    form =  registerform()
+    if request.method == 'POST':
+        form = registerform(request.POST)
+        if form.is_valid():
+            form.save()#create user data
+            print("register sucess")
+        
+            
+    return render(request,'register.html',{'form':form})
+ 
+
+def forgot_password(request):
+    return render(request,'forgot_password.html.html')
+
+def reset_password(request):
+    return render(request,'reset_password.html.html')
+
+def reset_password_email(request):
+    return render(request,'reset_password_email.html')
+
+def edit_post(request):
+    return render(request,'edit_post.html')
+
+def new_post(request):
+    return render(request,'new_post.html')
+

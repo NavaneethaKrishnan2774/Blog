@@ -9,5 +9,13 @@ urlpatterns=[
     path("new_something_url/",views.new_url,name="new_url"),
     path("old_url/",views.old_url,name="old_url"),
     path("contact/",views.contact,name="contact"),
-    path("about/",views.about,name="about")
+    path("about/",views.about,name="about"),
+    path("login/",views.login,name='login'),
+    path("register/",views.register,name='register'),
+    path("forgotpassword/",views.forgot_password,name='forgotpassword'),
+    path("resetpassword/",views.reset_password,name='resetpassword'),
+    path("resetpasswordemail/",views.reset_password_email,name='resetpasswordemail'),
+    path("newpost/",views.new_post,name='newpost'),
+    path("editpost/",views.edit_post,name='editpost'),
+    
     ]
