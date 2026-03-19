@@ -15,11 +15,7 @@ class Post(models.Model):
     img_url = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE,
-        related_name="posts"
-    )
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="posts" )
 
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
 
@@ -42,3 +38,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Aboutus(models.Model):
+    content = models.TextField()
