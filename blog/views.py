@@ -114,3 +114,7 @@ def edit_post(request):
 def new_post(request):
     return render(request,'new_post.html')
 
+def dashboard(request):
+    blog_title="hi jothi"
+    return render(request,'dashboard.html',{"blog_title":blog_title})
+

@@ -17,5 +17,6 @@ urlpatterns=[
     path("resetpasswordemail/",views.reset_password_email,name='resetpasswordemail'),
     path("newpost/",views.new_post,name='newpost'),
     path("editpost/",views.edit_post,name='editpost'),
+    path("dashboard/",views.dashboard,name='dashboard'),
     
     ]
