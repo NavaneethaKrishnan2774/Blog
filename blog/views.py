@@ -6,7 +6,7 @@ import logging
 from .models import Post ,Aboutus
 from django.core.paginator import Paginator
 from .forms import contactform , registerform
-
+from django.contrib import messages
 
 def index(request):
     blog_title = 'kryzen tech'
@@ -76,8 +76,11 @@ def register(request):
     if request.method == 'POST':
         form = registerform(request.POST)
         if form.is_valid():
-            form.save()#create user data
-            print("register sucess")
+            user=form.save(commit=False)#create user data
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            print("registered successfully")
+            messages.success(request,"registered successfully")
         
             
     return render(request,'register.html',{'form':form})
