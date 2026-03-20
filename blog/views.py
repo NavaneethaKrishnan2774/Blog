@@ -5,8 +5,9 @@ from django.template import loader
 import logging
 from .models import Post ,Aboutus
 from django.core.paginator import Paginator
-from .forms import contactform , registerform
+from .forms import contactform, loginform , registerform
 from django.contrib import messages
+from django.contrib.auth import authenticate,login as auth_login
 
 def index(request):
     blog_title = 'kryzen tech'
@@ -68,8 +69,20 @@ def about(request):
         about_content=about_content.content
     return render(request,'about.html',{'about_content':about_content})
  
-def login(request):
-    return render(request,'login.html')
+def user_login(request):
+    form = loginform()
+    if request.method=='POST':
+        form = loginform(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
+            user=authenticate(username=username,password=password)
+            if user is not None:
+                auth_login(request,user)
+                print("login successed")
+                return redirect("/dashboard")
+            
+    return render(request,'login.html',{'form':form})
 
 def register(request):
     form =  registerform()
