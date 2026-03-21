@@ -6,27 +6,9 @@
         <div class="col-4">
             <h3>Register</h3>
             <div class="">
-                 {% for field in form %}
-                {% if field.errors %}
-                    <div class="col-12">
-                        <span class="fw-bold">{{ field.label_tag }}</span>
-                        {% for error in field.errors %}
-                            <span class="text-danger">{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endfor %}
+               {% include "includes/errors.html" %}
             </div>
-            {%for error in form.non_field_errors%} 
-              <div class="alert alert-danger">
-                <span class = "text-danger">{{error}}</span>
-              </div>
-            {% endfor %}
-            {%if messages %}
-            {%for messahe in messages%}
-            <div class = "alert alert-success">{{message}}</div>
-            {%endfor%}
-            {%endif%}
+
 
 
             <div class=" my-3">

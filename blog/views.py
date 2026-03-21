@@ -80,7 +80,7 @@ def user_login(request):
             if user is not None:
                 auth_login(request,user)
                 print("login successed")
-                return redirect("/dashboard")
+                return redirect("blog:dashboard")
             
     return render(request,'login.html',{'form':form})
 
@@ -94,6 +94,7 @@ def register(request):
             user.save()
             print("registered successfully")
             messages.success(request,"registered successfully")
+            return redirect("blog:login")
         
             
     return render(request,'register.html',{'form':form})
