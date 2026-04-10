@@ -18,5 +18,6 @@ urlpatterns=[
     path("newpost/",views.new_post,name='newpost'),
     path("editpost/",views.edit_post,name='editpost'),
     path("dashboard/",views.dashboard,name='dashboard'),
+    path("logout/",views.logout,name='logout'),
     
     ]

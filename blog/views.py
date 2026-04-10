@@ -7,7 +7,7 @@ from .models import Post ,Aboutus
 from django.core.paginator import Paginator
 from .forms import contactform, loginform , registerform
 from django.contrib import messages
-from django.contrib.auth import authenticate,login as auth_login
+from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
 
 def index(request):
     blog_title = 'kryzen tech'
@@ -118,4 +118,8 @@ def new_post(request):
 def dashboard(request):
     blog_title="hi jothi"
     return render(request,'dashboard.html',{"blog_title":blog_title})
+
+def logout(request):
+    auth_logout(request)
+    return  redirect("blog:index")
 
