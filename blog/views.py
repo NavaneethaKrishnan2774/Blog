@@ -5,10 +5,14 @@ from django.template import loader
 import logging
 from .models import Post ,Aboutus
 from django.core.paginator import Paginator
-from .forms import contactform, loginform , registerform
+from .forms import contactform, forgotpasswordform, loginform , registerform
 from django.contrib import messages
 from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
-
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
 def index(request):
     blog_title = 'kryzen tech'
     content = "Some quick example text for the post's content."
@@ -101,7 +105,19 @@ def register(request):
  
 
 def forgot_password(request):
-    return render(request,'forgot_password.html.html')
+    if request.method =="POST":
+        form = forgotpasswordform(request.POST)
+        if form.is_valid:
+            email=form.cleaned_data['email']
+            user = user.objects.get(email=email)
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            current_site =get_current_site(request)
+            domain = current_site.domain
+            subject =  "message for password reset"
+            message = render_to_string('blog:resetpasswordemail',{'domain': domain })
+
+    return render(request,'forgot_password.html')
 
 def reset_password(request):
     return render(request,'reset_password.html.html')
